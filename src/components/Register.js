@@ -52,7 +52,7 @@ const Register = props => {
 
       // POSTing the new user when the user submits
       axios
-         .post('https://lambda-mud-test.herokuapp.com/api/registration/', user)
+         .post('https://cs-bw1-mud.herokuapp.com/api/registration/', user)
          .then(res => {
             setMessages({
                ...messages,

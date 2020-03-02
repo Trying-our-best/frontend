@@ -64,7 +64,7 @@ const Login = props => {
 
       // POSTing the new user when the user submits
       axios
-         .post(`https://lambda-mud-test.herokuapp.com/api/login/`, user)
+         .post(`https://cs-bw1-mud.herokuapp.com/api/login/`, user)
          .then(res => {
             setMessages({
                ...messages,
