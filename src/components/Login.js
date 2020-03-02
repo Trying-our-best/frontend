@@ -24,7 +24,7 @@ const Login = props => {
       failure: false
    });
 
-   // if the user is already logged in, we want to push them back to kit-builder
+   // if the user is already logged in, we want to push them back to the game
    useEffect(() => {
       const token = localStorage.getItem('token');
 
