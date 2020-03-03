@@ -74,6 +74,7 @@ const Login = props => {
 
             setTimeout(() => {
                props.history.push('/game');
+               window.location.reload();
             }, 3000);
          })
          .catch(err => {
