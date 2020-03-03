@@ -9,7 +9,7 @@ function App() {
    return localStorage.getItem('token') ? (
       <Router>
          <div className="App">
-            <h2>Trying Our Best...</h2>
+            <h2>CS MUD</h2>
             <Link to="/game">Game</Link>
             <Route path="/game" component={Game} />
          </div>
@@ -17,7 +17,7 @@ function App() {
    ) : (
       <Router>
          <div className="App">
-            <h2>Trying Our Best...</h2>
+            <h2>CS MUD</h2>
             <Link to="/login">Login </Link>
             <Link to="/register">Register </Link>
             <Route path="/login" component={Login} />
