@@ -61,6 +61,7 @@ const Register = props => {
             localStorage.setItem('token', res.data.key);
             setTimeout(() => {
                props.history.push('/game');
+               window.location.reload();
             }, 3000);
          })
          .catch(err => {
