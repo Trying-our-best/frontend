@@ -6,6 +6,7 @@ import Game from '../src/components/Game';
 import './App.css';
 
 function App() {
+
    return localStorage.getItem('token') ? (
       <Router>
          <div className="App">
