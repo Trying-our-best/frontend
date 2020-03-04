@@ -1,7 +1,7 @@
 import React from "react"
 
 // library imports
-import { NavLink } from "react-router-dom"
+import { NavLink, useHistory } from "react-router-dom"
 
 // component imports
 import Game from "../Game"
@@ -9,9 +9,13 @@ import Game from "../Game"
 // styling imports
 import "./NavBar.scss"
 
-const NavBar = () => {
+const NavBar = props => {
+  const history = useHistory()
   // function to destroy auth token and push user back to login page
-  const logout = () => {}
+  const logout = () => {
+    localStorage.removeItem("token")
+    history.push("/")
+  }
 
   return (
     <div className="navbar-wrapper">
