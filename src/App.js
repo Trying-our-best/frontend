@@ -2,21 +2,22 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 // component imports
-import Login from '../src/components/Login';
-import Register from '../src/components/Register';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 import Game from '../src/components/Game';
-import NavBar from './components/NavBar/NavBar'
+import NavBar from './components/NavBar/NavBar';
 
 // styling & image imports
-import './App.css'
-import StoneTexture from './assets/stone-texture.png'
-
+import './App.css';
+import StoneTexture from './assets/stone-texture.png';
 
 function App() {
-
    return localStorage.getItem('token') ? (
       <Router>
-         <div className="App" style={{ "backgroundImage": `url(${StoneTexture})`, "height": "100vh"}}>
+         <div
+            className="App"
+            style={{ backgroundImage: `url(${StoneTexture})`, height: '100vh' }}
+         >
             <NavBar />
             <h2>CS MUD</h2>
             <Link to="/game">Game</Link>
@@ -25,7 +26,13 @@ function App() {
       </Router>
    ) : (
       <Router>
-         <div className="App">
+         <div
+            className="App"
+            style={{
+               backgroundImage: `url(${StoneTexture})`,
+               height: '97.9vh'
+            }}
+         >
             <h2>CS MUD</h2>
             <Link to="/login">Login </Link>
             <Link to="/register">Register </Link>
