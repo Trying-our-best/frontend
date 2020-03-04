@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react"
 
 // library imports
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom"
 
 // component imports
-import Game from '../Game'
+import Game from "../Game"
 
 // styling imports
-import './NavBar.scss'
-
+import "./NavBar.scss"
 
 const NavBar = () => {
 
@@ -28,4 +27,4 @@ const NavBar = () => {
      );
 }
 
-export default NavBar;
+export default NavBar

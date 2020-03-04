@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import { createGlobalStyle } from "styled-components"
-import PlayerList from "./playerList"
+import PlayerList from "./playerList/playerList"
 
 const Directions = props => {
   const [location, setLocation] = useState({
