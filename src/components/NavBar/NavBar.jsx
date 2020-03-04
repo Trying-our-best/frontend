@@ -18,9 +18,13 @@ const NavBar = () => {
     }
 
     return (
-        <div>
-            <NavLink to={Game} />
-            <button onClick={logout}>Logout</button>
+        <div className="navbar-wrapper">
+            <h2 className="logo">Trying Our Best MUD</h2>
+            <div className="nav-links">
+                <NavLink to={Game} className="navlink">Game</NavLink>
+                <button onClick={logout}>Logout</button>
+            </div>
+            
         </div>
      );
 }
