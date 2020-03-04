@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { axiosWithAuth } from "../utils/axiosWithAuth"
 import { createGlobalStyle } from "styled-components"
-import PlayerList from "./playerList"
+import PlayerList from "./playerList/playerList"
 
 const Directions = props => {
   const [location, setLocation] = useState({
@@ -65,8 +65,7 @@ const Directions = props => {
       {roomInfo.isError ? <p>That isn't a valid direction.</p> : null}
       {location.direction ? <p>Last Move: {location.direction}</p> : null}
       {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null}
-      <p>Player: {roomInfo.name}</p>
-      <PlayerList players={roomInfo.players} />
+      <PlayerList players={roomInfo.players} current={roomInfo.name} />
       <p>{roomInfo.title}</p>
       <p>{roomInfo.description}</p>
     </div>
