@@ -10,21 +10,20 @@ import Game from "../Game"
 import "./NavBar.scss"
 
 const NavBar = () => {
+  // function to destroy auth token and push user back to login page
+  const logout = () => {}
 
-    // function to destroy auth token and push user back to login page
-    const logout = () => { 
-
-    }
-
-    return (
-        <div className="navbar-wrapper">
-            <h2 className="logo">Trying Our Best MUD</h2>
-            <div className="nav-links">
-                <NavLink to={Game} className="navlink">Game</NavLink>
-                <button onClick={logout}>Logout</button>
-            </div>
-        </div>
-     );
+  return (
+    <div className="navbar-wrapper">
+      <h2 className="logo">oneStep Maze</h2>
+      <div className="nav-links">
+        <NavLink to={Game} className="navlink">
+          Game
+        </NavLink>
+        <button onClick={logout}>Logout</button>
+      </div>
+    </div>
+  )
 }
 
 export default NavBar
