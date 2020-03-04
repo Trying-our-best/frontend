@@ -100,8 +100,8 @@ const Register = props => {
 
    return (
       <div className="signup-container">
-         <h1 className="signup-heading">Sign Up</h1>
          <form className="form-container" onSubmit={handleSubmit}>
+            <h1 className="signup-heading">Sign Up</h1>
             <label className="form-label">
                Username
                <input

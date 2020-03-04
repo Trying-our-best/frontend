@@ -30,7 +30,7 @@ function App() {
             className="App"
             style={{
                backgroundImage: `url(${StoneTexture})`,
-               height: '97.9vh'
+               height: '100vh'
             }}
          >
             <h2>CS MUD</h2>
