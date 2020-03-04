@@ -13,7 +13,7 @@ import './NavBar.scss'
 const NavBar = () => {
 
     // function to destroy auth token and push user back to login page
-    const logout = () => {
+    const logout = () => { 
 
     }
 
