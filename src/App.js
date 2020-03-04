@@ -11,6 +11,7 @@ import NavBar from './components/NavBar/NavBar';
 // styling & image imports
 import './App.css';
 import StoneTexture from './assets/stone-texture.png';
+import Torch from './assets/torch.png';
 
 
 function App() {
