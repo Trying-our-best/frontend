@@ -91,8 +91,8 @@ const Login = props => {
 
    return (
       <div className="login-container">
-         <h1 className="login-heading">Login</h1>
          <form className="form-container" onSubmit={handleSubmit}>
+            <h1 className="login-heading">Login</h1>
             <label className="form-label">
                Username
                <br />
