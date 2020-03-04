@@ -16,7 +16,7 @@ import Torch from './assets/torch.png'
 function App() {
 
    return localStorage.getItem('token') ? (
-      <Router>
+      <Router> 
          <div className="App">
             <NavBar />
             <h1>Testing</h1>
