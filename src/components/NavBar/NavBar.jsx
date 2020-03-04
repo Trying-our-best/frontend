@@ -24,7 +24,6 @@ const NavBar = () => {
                 <NavLink to={Game} className="navlink">Game</NavLink>
                 <button onClick={logout}>Logout</button>
             </div>
-            
         </div>
      );
 }

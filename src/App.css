@@ -1,4 +1,25 @@
 .App {
   text-align: center;
   margin: 0; 
+  background-image: 
+    url(./assets/stone-texture.png),
+    url(./assets/torch.png),
+    url(./assets/torch.png);
+  height: 100vh;
+}
+
+.torch-left {
+  position: absolute;
+  left: 0;
+  width: 25rem;
+  height: 15rem;
+  margin-top: 7rem;
+}
+
+.torch-right {
+  position: absolute;
+  right: 0; 
+  width: 25rem;
+  height: 15rem;
+  margin-top: 7rem;
 }
