@@ -7,6 +7,7 @@
    font-family: 'VT323', monospace;
    color: #d7db2c;
    text-align: center;
+   max-height: 82%;
    .signup-heading {
       font-size: 3rem;
       text-shadow: 4px 4px 2px #000000d9;
@@ -60,5 +61,8 @@
       height: 4rem;
       color: #d7db2c;
       font-size: 2rem;
+   }
+   p {
+      font-size: 1rem;
    }
 }

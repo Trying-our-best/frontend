@@ -114,7 +114,7 @@ const Register = props => {
                />
                {user.username === '' && touched.username === true ? (
                   <p className="required-error">
-                     username is a required field.
+                     Username is a required field.
                   </p>
                ) : null}
             </label>
