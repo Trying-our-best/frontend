@@ -7,6 +7,9 @@ const PlayerList = props => {
       <React.Fragment className="parent">
         <div className="player-container">
           <h3>Player List</h3>
+          <b>
+            <i>{props.current} (You)</i>
+          </b>
           {props.players.map(player => {
             return <div>{player}</div>
           })}

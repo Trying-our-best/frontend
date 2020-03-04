@@ -65,8 +65,7 @@ const Directions = props => {
       {roomInfo.isError ? <p>That isn't a valid direction.</p> : null}
       {location.direction ? <p>Last Move: {location.direction}</p> : null}
       {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null}
-      <p>Player: {roomInfo.name}</p>
-      <PlayerList players={roomInfo.players} />
+      <PlayerList players={roomInfo.players} current={roomInfo.name} />
       <p>{roomInfo.title}</p>
       <p>{roomInfo.description}</p>
     </div>
