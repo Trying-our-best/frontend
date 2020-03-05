@@ -36,7 +36,6 @@ export default class Canvas extends Component {
         } else {
           ctx.fillStyle = "#999";
         }
-
         ctx.fillRect(
           x * this.state.tileW,
           y * this.state.tileH,
@@ -181,13 +180,31 @@ export default class Canvas extends Component {
   render() {
     return (
       <div>
-        <PlayerList
-          players={this.state.room.players}
-          current={this.state.room.name}
-        />
-        <p>{this.state.room.currentRoom}</p>
-        <p>{this.state.room.roomDescription}</p>
-
+        <div>
+          {this.state.room ? (
+            <div className="Direction-Buttons">
+              <div style={{ backgroundColor: "white" }}>
+                {/* {location.direction ? <p>Last Move: {location.direction}</p> : null} */}
+                <p>{this.state.room.currentRoom}</p>
+                <p>{this.state.room.roomDescription}</p>
+              </div>
+              {/* {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null} */}
+              <PlayerList
+                players={this.state.room.players}
+                current={this.state.room.name}
+              />
+            </div>
+          ) : (
+            <div>
+              <PlayerList
+                players={this.state.room.players}
+                current={this.state.room.name}
+              />
+              <p>{this.state.room.currentRoom}</p>
+              <p>{this.state.room.roomDescription}</p>
+            </div>
+          )}
+        </div>
         <canvas
           ref="canvas"
           id="canvas"

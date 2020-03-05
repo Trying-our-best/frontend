@@ -23,7 +23,7 @@ function App() {
     <Router>
       <div
         className="App"
-        style={{ backgroundImage: `url(${StoneTexture})`, height: "100vh" }}
+        //   style={{ backgroundImage: `url(${StoneTexture})`, height: "100vh" }}
       >
         <NavBar isLoggedIn={true} />
         <img src={Torch} alt="torch" className="torch-left" />
@@ -37,7 +37,7 @@ function App() {
       <div
         className="App"
         style={{
-          backgroundImage: `url(${StoneTexture})`,
+          //  backgroundImage: `url(${StoneTexture})`,
           height: "100vh"
         }}
       >
