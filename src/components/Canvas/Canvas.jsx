@@ -1,16 +1,16 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { Component } from "react";
 
 import Player from "../../assets/torch.png";
 import PlayerList from "../playerList/playerList";
 
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-import Directions from "../Directions";
-
 export default class Canvas extends Component {
   state = {
     x: 15,
     y: 15,
+    playerX: null,
+    playerY: null,
     torchW: 15,
     torchH: 15,
     tileW: 15,
@@ -49,22 +49,28 @@ export default class Canvas extends Component {
 
   drawTorch = (x, y, width, height) => {
     const ctx = this.refs.canvas.getContext("2d");
-    //ctx.clearRect(0, 0, this.refs.canvas.width, this.refs.canvas.height)
-
     const img = new Image();
     img.src = Player;
-
-    ctx.drawImage(img, x, y, width, height);
+    console.log("playerX", this.state.playerX);
+    console.log("playerY", this.state.playerY);
+    ctx.drawImage(
+      img,
+      this.state.playerX * x + x, //0 * 15 * 2 +15= 15      =15
+      this.state.playerY * y + y, //1 * 15 * 2 + 15= 45     =30
+      width,
+      height
+    );
   };
 
   verifyMovement = () => {
     axiosWithAuth()
       .post("api/adv/move/", this.state.location)
       .then(res => {
-        console.log(res.data);
         let temp = 0;
         this.setState({
           ...this.state,
+          playerX: res.data.x,
+          playerY: res.data.y,
           room: {
             name: res.data.name,
             currentRoom: res.data.title,
@@ -74,7 +80,6 @@ export default class Canvas extends Component {
           }
         });
         if (res.data.error_msg === "") {
-          console.log(res.data.error_msg);
           switch (this.state.location.direction) {
             case "w":
               temp = this.state.x;
@@ -119,9 +124,10 @@ export default class Canvas extends Component {
     axiosWithAuth()
       .get("/api/adv/init/")
       .then(res => {
-        let temp = 0;
         this.setState({
           ...this.state,
+          playerX: res.data.x,
+          playerY: res.data.y,
           room: {
             currentRoom: res.data.title,
             roomDescription: res.data.description,
@@ -141,23 +147,9 @@ export default class Canvas extends Component {
         });
       });
 
-    setInterval(() => {
-      this.drawTorch(
-        this.state.x,
-        this.state.y,
-        this.state.torchW,
-        this.state.torchH
-      );
-    }, 1000 / 30);
-
     document.addEventListener("keydown", e => {
       // checking for which key is pressed
       if (e.key === "w") {
-        // setting temp var to capture value of y
-
-        // if y value - 100 is still greater than zero, do movement as normal
-
-        // console.log(this.state.y)sss
         this.setState({
           ...this.state,
           location: {
@@ -180,7 +172,6 @@ export default class Canvas extends Component {
             direction: "s"
           }
         });
-
         this.verifyMovement();
       } else if (e.key === "d") {
         this.setState({
@@ -197,6 +188,17 @@ export default class Canvas extends Component {
   componentDidUpdate = prevState => {
     if (this.state.gameMapArr !== prevState) {
       this.drawCanvas();
+    }
+    if (
+      this.state.playerX !== prevState.playerX ||
+      this.state.playerY !== prevState.playerY
+    ) {
+      this.drawTorch(
+        this.state.x,
+        this.state.y,
+        this.state.torchW,
+        this.state.torchH
+      );
     }
   };
 
