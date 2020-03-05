@@ -14,10 +14,11 @@ const NavBar = props => {
   // function to destroy auth token and push user back to login page
   const logout = () => {
     localStorage.removeItem("token")
-    history.push("/")
+    history.push("/login")
+    window.location.reload()
   }
 
-  return (
+  return props.isLoggedIn ? (
     <div className="navbar-wrapper">
       <h2 className="logo">oneStep Maze</h2>
       <div className="nav-links">
@@ -25,6 +26,18 @@ const NavBar = props => {
           Game
         </NavLink>
         <button onClick={logout}>Logout</button>
+      </div>
+    </div>
+  ) : (
+    <div className="navbar-wrapper">
+      <h2 className="logo">oneStep Maze</h2>
+      <div className="nav-links">
+        <NavLink to="/login" className="navlink">
+          Login{" "}
+        </NavLink>
+        <NavLink to="/register" className="navlink">
+          Register{" "}
+        </NavLink>
       </div>
     </div>
   )
