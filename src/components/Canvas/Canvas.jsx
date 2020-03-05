@@ -17,23 +17,19 @@ export default class Canvas extends Component {
 
         const img = new Image();
         img.src = Player;
-        console.log('check')
+        console.log('check');
 
-        // img.onload = () => {
-        ctx.drawImage(img, x, y, width, height)
-        // }
+        ctx.drawImage(img, x, y, width, height);
     }
 
     componentDidMount = () => {
-        // this.drawTorch(this.state.x, this.state.y, this.state.width, this.state.height);
 
         setInterval(() => {
-            // this.move();
             this.drawTorch(this.state.x, this.state.y, this.state.width, this.state.height);
         }, 1000 / 60);
 
         document.addEventListener('keydown', (e) => {
-            console.log(e.key)
+
             if(e.key === 'w') {
                 this.state.y -= 100
 
@@ -51,7 +47,6 @@ export default class Canvas extends Component {
     }
 
     render() {
-        console.log('check')
         return (
             <div>
                 <canvas ref="canvas" id="canvas" width="1040" height="650"></canvas>
