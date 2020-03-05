@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
-import Game from '../src/components/Game';
+import Game from '../src/components/Game/Game';
 import NavBar from './components/NavBar/NavBar';
 
 // styling & image imports
