@@ -3,10 +3,10 @@ import "./playerList.scss"
 
 const PlayerList = props => {
 
-  console.log(props)
+  // console.log(props)
   if (props.players) {
     return (
-      <React.Fragment className="parent">
+      <div className="parent">
         <div className="player-container">
           <h3>Player List</h3>
           <b>
@@ -16,7 +16,7 @@ const PlayerList = props => {
             return <div>{player}</div>
           })}
         </div>
-      </React.Fragment>
+      </div>
     )
   } else {
     return <div>Loading...</div>
