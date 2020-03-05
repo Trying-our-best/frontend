@@ -103,7 +103,6 @@ export default class Canvas extends Component {
               // temp += 100
               // if y value - 100 is still greater than zero, do movement as normal
               if (temp < ctx.canvas.height) {
-                console.log('made it')
                 this.setState({
                   ...this.state,
                   y: this.state.y + 100,
@@ -143,10 +142,10 @@ export default class Canvas extends Component {
                         players: res.data.players
                     }
                 })
-                // console.log("moveNorth Res: ", res.data)
+                console.log("moveNorth Res: ", res.data)
               })
               .catch(err => {
-                // console.log("North Error: ", err.res)
+                console.log("North Error: ", err.res)
               })
           })
         }
@@ -154,7 +153,6 @@ export default class Canvas extends Component {
         
         render() {
           console.log(this.state)
-        // console.log(this.state.room)
         return (
 
             <div>
