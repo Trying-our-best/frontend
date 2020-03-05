@@ -57,8 +57,7 @@ export default class Canvas extends Component {
 
         setInterval(() => {
             this.drawTorch(this.state.x, this.state.y, this.state.width, this.state.height);
-            console.log('rerender')
-        }, 1000 / 60);
+        }, 1000 / 30);
 
         // document.addEventListener('keydown', (e) => {
 
