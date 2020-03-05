@@ -5,8 +5,6 @@ import PlayerList from '../playerList/playerList'
 
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 
-import Directions from '../Directions'
-
 export default class Canvas extends Component {
 
     state = {
@@ -23,6 +21,40 @@ export default class Canvas extends Component {
             roomDescription: null,
             players: null,
         }
+    }
+
+    drawCanvas = () => {
+      const ctx = this.refs.canvas.getContext("2d")
+      //draw tiles that make up game map
+      //beign by looping through each tile
+      for (let y = 0; y <= 47; y++) {
+        //for each row, go left to right
+        for (let x = 0; x <= 47; x++) {
+          //switch statement lets us choose which color to draw curent tile with
+          //find value at corresponding game map index by y*mapW and add x
+          // switch (this.state.gameMapArr[y * 47 + x]) {
+          //   case 0:
+          //     ctx.fillStyle = "#999999"
+          //     break
+          //   default:
+          //     ctx.fillStyle = "#eeeeee"
+          // }
+          if (this.state.gameMapArr[y * 47 + x]) {
+            ctx.fillStyle = "#eee"
+          } else {
+            ctx.fillStyle = "#999"
+          }
+          console.log("hit")
+          //draw rectangle at coresponding position tile
+          ctx.fillRect(
+            x * this.state.tileW,
+            y * this.state.tileH,
+            this.state.tileW,
+            this.state.tileH
+          )
+          break
+        }
+      }
     }
 
     drawTorch = (x, y, width, height) => {
@@ -52,6 +84,8 @@ export default class Canvas extends Component {
           })
         })
         .catch(err => err.err)  
+
+        this.drawCanvas()
 
         setInterval(() => {
             this.drawTorch(this.state.x, this.state.y, this.state.width, this.state.height);
