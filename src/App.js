@@ -8,17 +8,10 @@ import {
 
 // component imports
 
-<<<<<<< HEAD
-import Login from "./components/Login/Login"
-import Register from "./components/Register/Register"
-import Game from "../src/components/Game/Game"
-import NavBar from "./components/NavBar/NavBar"
-=======
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import Game from "../src/components/Game/Game";
 import NavBar from "./components/NavBar/NavBar";
->>>>>>> 20f7db0cd27f1b9ff00a53645f2fc871cb005e4f
 
 // styling & image imports
 import "./App.css";
