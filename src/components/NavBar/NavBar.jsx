@@ -4,7 +4,7 @@ import React from "react"
 import { NavLink, useHistory } from "react-router-dom"
 
 // component imports
-import Game from "../Game"
+import Game from "../Game/Game"
 
 // styling imports
 import "./NavBar.scss"
