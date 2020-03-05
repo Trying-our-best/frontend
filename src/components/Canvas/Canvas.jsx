@@ -13,8 +13,8 @@ export default class Canvas extends Component {
     y: 15,
     torchW: 15,
     torchH: 15,
-    tileW: 15,
-    tileH: 15,
+    tileW: 10,
+    tileH: 10,
     location: {
       direction: null
     },
@@ -113,7 +113,7 @@ export default class Canvas extends Component {
       if (e.key === "w") {
         // setting temp var to capture value of y
         temp = this.state.y
-        temp -= 15
+        temp -= 30
 
         // if y value - 100 is still greater than zero, do movement as normal
         if (temp > 0) {
@@ -129,7 +129,7 @@ export default class Canvas extends Component {
       } else if (e.key === "a") {
         // setting temp var to capture value of y
         temp = this.state.x
-        temp -= 15
+        temp -= 30
 
         // if x value - 100 is still greater than zero, do movement as normal
         if (temp > 0) {
@@ -143,13 +143,13 @@ export default class Canvas extends Component {
         }
       } else if (e.key === "s") {
         // setting temp var to capture value of y
-        temp = this.state.y + 15
+        temp = this.state.y + 30
         // temp += 100
         // if y value - 100 is still greater than zero, do movement as normal
         if (temp < ctx.canvas.height) {
           this.setState({
             ...this.state,
-            y: this.state.y + 15,
+            y: this.state.y + 30,
             location: {
               direction: "s"
             }
@@ -157,7 +157,7 @@ export default class Canvas extends Component {
         }
       } else if (e.key === "d") {
         temp = this.state.x
-        temp += 15
+        temp += 30
         // if x value - 100 is still greater than zero, do movement as normal
         if (temp < ctx.canvas.width) {
           this.setState({
@@ -173,6 +173,7 @@ export default class Canvas extends Component {
       axiosWithAuth()
         .post("api/adv/move/", this.state.location)
         .then(res => {
+          console.log(res.data)
           this.setState({
             ...this.state,
             room: {
