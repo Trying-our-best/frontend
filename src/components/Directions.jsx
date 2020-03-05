@@ -8,14 +8,36 @@ const Directions = props => {
     direction: ""
   })
 
-  const [roomInfo, setRoomInfo] = useState({
-    name: "",
-    title: "",
-    description: "",
-    players: "",
-    error_msg: "",
-    isError: false
+  // const [roomInfo, setRoomInfo] = useState({
+  //   name: "",
+  //   title: "",
+  //   description: "",
+  //   players: "",
+  //   error_msg: "",
+  //   isError: false
+  // })
+
+  const [room, setRoom] = useState({
+    currentRoom: '',
+    roomDescription: '',
+    name: '',
+    players: '',
   })
+
+  useEffect(() => {
+    axiosWithAuth()
+    .get("/api/adv/init/")
+    .then(res => {
+      console.log(res)
+      setRoom({
+        currentRoom: res.data.title,
+        roomDescription: res.data.description,
+        name: res.data.name,
+        players: res.data.players
+      })
+    })
+    .catch(err => err.err) 
+  }, [])
 
   const moveDirection = e => {
     e.preventDefault()
@@ -27,18 +49,17 @@ const Directions = props => {
       e.keyCode === 87
     ) {
       console.log("pass")
-      setRoomInfo({ ...location, isError: false })
+      // setRoomInfo({ ...location, isError: false })
       setLocation({ direction: String.fromCharCode(e.keyCode).toLowerCase() })
 
       axiosWithAuth()
         .post("api/adv/move/", location)
         .then(res => {
-          setRoomInfo({
+          setRoom({
             name: res.data.name,
-            title: res.data.title,
-            description: res.data.description,
-            players: res.data.players,
-            error_msg: res.data.error_msg
+            currentRoom: res.data.title,
+            roomDescription: res.data.description,
+            players: res.data.players
           })
           console.log("moveNorth Res: ", res.data)
         })
@@ -46,38 +67,61 @@ const Directions = props => {
           console.log("North Error: ", err.res)
         })
     } else {
-      setRoomInfo({
-        ...roomInfo,
-        isError: true
-      })
+      // setRoomInfo({
+      //   ...roomInfo,
+      //   isError: true
+      // })
     }
   }
-  return roomInfo ? (
-    <div className="Direction-Buttons">
-      <label htmlFor="direction">Direction</label>
-      <input
-        className="direction"
-        onKeyDown={moveDirection}
-        value={location.direction}
-        onChange={moveDirection}
-      />
-      {roomInfo.isError ? <p>That isn't a valid direction.</p> : null}
-      {location.direction ? <p>Last Move: {location.direction}</p> : null}
-      {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null}
-      <PlayerList players={roomInfo.players} current={roomInfo.name} />
-      <p>{roomInfo.title}</p>
-      <p>{roomInfo.description}</p>
-    </div>
-  ) : (
+
+// axiosWithAuth()
+// .get("/api/adv/init/")
+// .then(res => {
+// console.log(res)
+// setRoom({
+// currentRoom: res.data.title,
+// roomDescription: res.data.description,
+// name: res.data.name,
+// players: res.data.players
+// })
+// })
+// .catch(err => err.err) 
+
+  return (
     <div>
-      <PlayerList
-        players={props.roomInfo.players}
-        current={props.roomInfo.name}
-      />
-      <p>{props.roomInfo.currentRoom}</p>
-      <p>{props.roomInfo.roomDescription}</p>
+      {room ? (
+      <div className="Direction-Buttons">
+        <label htmlFor="direction">Direction</label>
+        <input
+          className="direction"
+          onKeyDown={moveDirection}
+          value={location.direction}
+          onChange={moveDirection}
+        />
+        {/* {roomInfo.isError ? <p>That isn't a valid direction.</p> : null} */}
+        
+        <div style={{backgroundColor: "white"}}>
+          {location.direction ? <p>Last Move: {location.direction}</p> : null}
+          <p>{room.currentRoom}</p>
+          <p>{room.roomDescription}</p>
+        </div>
+        {/* {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null} */}
+        <PlayerList players={room.players} current={room.name} />
+
+      </div>
+    ) : (
+      <div>
+        <PlayerList
+          players={room.players}
+          current={room.name}
+        />
+        <p>{room.currentRoom}</p>
+        <p>{room.roomDescription}</p>
+      </div>
+    )}
     </div>
-  )
-}
+)}
+
+
 
 export default Directions
