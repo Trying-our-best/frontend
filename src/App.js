@@ -12,10 +12,7 @@ import Login from "./components/Login/Login"
 import Register from "./components/Register/Register"
 import Game from "../src/components/Game/Game"
 import NavBar from "./components/NavBar/NavBar"
-<<<<<<< HEAD
-=======
 // import guestNav from "./components/NavBar/guestNav"
->>>>>>> 297046f8434eff6657e6a92b3e1a8ec8211bb39b
 
 // styling & image imports
 import "./App.css"
@@ -27,7 +24,7 @@ function App() {
     <Router>
       <div
         className="App"
-        style={{ backgroundImage: `url(${StoneTexture})`, height: "100vh" }}
+        //   style={{ backgroundImage: `url(${StoneTexture})`, height: "100vh" }}
       >
         <NavBar isLoggedIn={true} />
         <img src={Torch} alt="torch" className="torch-left" />
@@ -41,7 +38,7 @@ function App() {
       <div
         className="App"
         style={{
-          backgroundImage: `url(${StoneTexture})`,
+          //  backgroundImage: `url(${StoneTexture})`,
           height: "100vh"
         }}
       >

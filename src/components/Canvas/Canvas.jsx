@@ -31,9 +31,9 @@ export default class Canvas extends Component {
     const ctx = this.refs.canvas.getContext("2d")
     //draw tiles that make up game map
     //beign by looping through each tile
-    for (let y = 0; y < 47; y++) {
+    for (let y = 0; y <= 47; y++) {
       //for each row, go left to right
-      for (let x = 0; x < 47; x++) {
+      for (let x = 0; x <= 47; x++) {
         //switch statement lets us choose which color to draw curent tile with
         //find value at corresponding game map index by y*mapW and add x
         // switch (this.state.gameMapArr[y * 47 + x]) {
@@ -49,8 +49,6 @@ export default class Canvas extends Component {
         } else {
           ctx.fillStyle = "#999"
         }
-
-        console.log("hit")
         //draw rectangle at coresponding position tile
         ctx.fillRect(
           x * this.state.tileW,
@@ -58,7 +56,6 @@ export default class Canvas extends Component {
           this.state.tileW,
           this.state.tileH
         )
-        break
       }
     }
   }
@@ -86,109 +83,128 @@ export default class Canvas extends Component {
             players: res.data.players
           }
         })
-        .catch(err => err.err)  
+      })
+      .catch(err => err.err)
 
-        setInterval(() => {
-            this.drawTorch(this.state.x, this.state.y, this.state.width, this.state.height);
-        }, 1000 / 30);
+    axiosWithAuth()
+      .get("/api/adv/gamemap/")
+      .then(res => {
+        this.setState({
+          ...this.state,
+          gameMapArr: res.data.gameMap.flat()
+        })
+      })
 
-        document.addEventListener('keydown', (e) => {
-            let temp;
-            const ctx = this.refs.canvas.getContext('2d');
-            // checking for which key is pressed
-            if (e.key === "w") {
-              // setting temp var to capture value of y
-              temp = this.state.y
-              temp -= 100
+    this.drawCanvas()
 
-              // if y value - 100 is still greater than zero, do movement as normal
-              if (temp > 0) {
+    setInterval(() => {
+      this.drawTorch(
+        this.state.x,
+        this.state.y,
+        this.state.torchW,
+        this.state.torchH
+      )
+    }, 1000 / 30)
 
-                // console.log(this.state.y)sss
-                this.setState({
-                  ...this.state,
-                  y: temp,
-                  location: {
-                    direction: 'n'
-                  }
-                })
-              }
+    document.addEventListener("keydown", e => {
+      let temp
+      const ctx = this.refs.canvas.getContext("2d")
+      // checking for which key is pressed
+      if (e.key === "w") {
+        // setting temp var to capture value of y
+        temp = this.state.y
+        temp -= 100
 
-            } else if (e.key === 'a') {
-              // setting temp var to capture value of y
-              temp = this.state.x
-              temp -= 100
-              
-              // if x value - 100 is still greater than zero, do movement as normal
-              if (temp > 0) {
-
-                this.setState({
-                  ...this.state,
-                  x: temp,
-                  location: {
-                    direction: 'w'
-                  }
-                })
-              }
-
-            } else if (e.key === 's') {
-              // setting temp var to capture value of y
-              temp = this.state.y + 100
-              // temp += 100
-              // if y value - 100 is still greater than zero, do movement as normal
-              if (temp < ctx.canvas.height) {
-                this.setState({
-                  ...this.state,
-                  y: this.state.y + 100,
-                  location: {
-                    direction: 's'
-                  }
-                })
-              }
-
-
-
-            } else if (e.key === 'd') {
-              temp = this.state.x
-              temp += 100
-              // if x value - 100 is still greater than zero, do movement as normal
-              if (temp < ctx.canvas.width) {
-
-                this.setState({
-                  ...this.state,
-                  x: temp,
-                  location: {
-                    direction: 'e'
-                  }
-                })
-              }
+        // if y value - 100 is still greater than zero, do movement as normal
+        if (temp > 0) {
+          // console.log(this.state.y)sss
+          this.setState({
+            ...this.state,
+            y: temp,
+            location: {
+              direction: "n"
             }
-            
-            axiosWithAuth()
-              .post("api/adv/move/", this.state.location)
-              .then(res => {
-                this.setState({
-                    ...this.state,
-                    room: {
-                        name: res.data.name,
-                        currentRoom: res.data.title,
-                        roomDescription: res.data.description,
-                        players: res.data.players
-                    }
-                })
-                console.log("moveNorth Res: ", res.data)
-              })
-              .catch(err => {
-                console.log("North Error: ", err.res)
-              })
           })
         }
+      } else if (e.key === "a") {
+        // setting temp var to capture value of y
+        temp = this.state.x
+        temp -= 100
 
-        
-        render() {
-          console.log(this.state)
-        return (
+        // if x value - 100 is still greater than zero, do movement as normal
+        if (temp > 0) {
+          this.setState({
+            ...this.state,
+            x: temp,
+            location: {
+              direction: "w"
+            }
+          })
+        }
+      } else if (e.key === "s") {
+        // setting temp var to capture value of y
+        temp = this.state.y + 100
+        // temp += 100
+        // if y value - 100 is still greater than zero, do movement as normal
+        if (temp < ctx.canvas.height) {
+          this.setState({
+            ...this.state,
+            y: this.state.y + 100,
+            location: {
+              direction: "s"
+            }
+          })
+        }
+      } else if (e.key === "d") {
+        temp = this.state.x
+        temp += 100
+        // if x value - 100 is still greater than zero, do movement as normal
+        if (temp < ctx.canvas.width) {
+          this.setState({
+            ...this.state,
+            x: temp,
+            location: {
+              direction: "e"
+            }
+          })
+        }
+      }
 
+      axiosWithAuth()
+        .post("api/adv/move/", this.state.location)
+        .then(res => {
+          this.setState({
+            ...this.state,
+            room: {
+              name: res.data.name,
+              currentRoom: res.data.title,
+              roomDescription: res.data.description,
+              players: res.data.players
+            }
+          })
+        })
+        .catch(err => err.res)
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          {this.state.room ? (
+            <div className="Direction-Buttons">
+              <div style={{ backgroundColor: "white" }}>
+                {/* {location.direction ? <p>Last Move: {location.direction}</p> : null} */}
+                <p>{this.state.room.currentRoom}</p>
+                <p>{this.state.room.roomDescription}</p>
+              </div>
+              {/* {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null} */}
+              <PlayerList
+                players={this.state.room.players}
+                current={this.state.room.name}
+              />
+            </div>
+          ) : (
             <div>
               <PlayerList
                 players={this.state.room.players}
