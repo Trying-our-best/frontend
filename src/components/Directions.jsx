@@ -52,8 +52,7 @@ const Directions = props => {
       })
     }
   }
-
-  return (
+  return roomInfo ? (
     <div className="Direction-Buttons">
       <label htmlFor="direction">Direction</label>
       <input
@@ -68,6 +67,15 @@ const Directions = props => {
       <PlayerList players={roomInfo.players} current={roomInfo.name} />
       <p>{roomInfo.title}</p>
       <p>{roomInfo.description}</p>
+    </div>
+  ) : (
+    <div>
+      <PlayerList
+        players={props.roomInfo.players}
+        current={props.roomInfo.name}
+      />
+      <p>{props.roomInfo.currentRoom}</p>
+      <p>{props.roomInfo.roomDescription}</p>
     </div>
   )
 }
