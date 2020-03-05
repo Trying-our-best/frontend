@@ -2,6 +2,8 @@ import React from "react"
 import "./playerList.scss"
 
 const PlayerList = props => {
+
+  console.log(props)
   if (props.players) {
     return (
       <React.Fragment className="parent">
