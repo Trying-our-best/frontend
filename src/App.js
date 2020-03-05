@@ -12,6 +12,10 @@ import Login from "./components/Login/Login"
 import Register from "./components/Register/Register"
 import Game from "../src/components/Game/Game"
 import NavBar from "./components/NavBar/NavBar"
+<<<<<<< HEAD
+=======
+// import guestNav from "./components/NavBar/guestNav"
+>>>>>>> 297046f8434eff6657e6a92b3e1a8ec8211bb39b
 
 // styling & image imports
 import "./App.css"
