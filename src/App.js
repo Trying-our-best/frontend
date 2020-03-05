@@ -1,23 +1,22 @@
-import React from "react"
+import React from "react";
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Redirect
-} from "react-router-dom"
+} from "react-router-dom";
 
 // component imports
 
-import Login from "./components/Login/Login"
-import Register from "./components/Register/Register"
-import Game from "../src/components/Game/Game"
-import NavBar from "./components/NavBar/NavBar"
-// import guestNav from "./components/NavBar/guestNav"
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Register";
+import Game from "../src/components/Game/Game";
+import NavBar from "./components/NavBar/NavBar";
 
 // styling & image imports
-import "./App.css"
-import StoneTexture from "./assets/stone-texture.png"
-import Torch from "./assets/torch.png"
+import "./App.css";
+import StoneTexture from "./assets/stone-texture.png";
+import Torch from "./assets/torch.png";
 
 function App() {
   return localStorage.getItem("token") ? (
@@ -48,7 +47,7 @@ function App() {
         <Route path="/register" component={Register} />
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
