@@ -5,22 +5,27 @@ import PlayerList from '../playerList/playerList'
 
 import { axiosWithAuth } from '../../utils/axiosWithAuth'
 
+import Directions from '../Directions'
+
 export default class Canvas extends Component {
 
     state = {
-        x: 50,
-        y: 50,
-        width: 100,
-        height: 100,
-        location: {
-            direction: null
-        },
-        room: {
-            name: null,
-            currentRoom: null,
-            roomDescription: null,
-            players: null,
-        }
+      x: 50,
+      y: 50,
+      torchW: 100,
+      torchH: 100,
+      tileW: 40,
+      tileH: 40,
+      location: {
+        direction: null
+      },
+      room: {
+        name: null,
+        currentRoom: null,
+        roomDescription: null,
+        players: null
+      },
+      gameMapArr: []
     }
 
     drawCanvas = () => {
@@ -52,7 +57,6 @@ export default class Canvas extends Component {
             this.state.tileW,
             this.state.tileH
           )
-          break
         }
       }
     }
@@ -67,6 +71,10 @@ export default class Canvas extends Component {
         ctx.drawImage(img, x, y, width, height);
     }
 
+    componentDidUpdate = () => {
+
+    }
+
     componentDidMount = () => {
 
         axiosWithAuth()
@@ -74,24 +82,39 @@ export default class Canvas extends Component {
         .then(res => {
           console.log(res)
           this.setState({ 
-              ...this.state, 
-              room: {
-                currentRoom: res.data.title,
-                roomDescription: res.data.description,
-                name: res.data.name,
-                players: res.data.players
-              }
+            ...this.state, 
+            room: {
+              currentRoom: res.data.title,
+              roomDescription: res.data.description,
+              name: res.data.name,
+              players: res.data.players
+            }
           })
         })
         .catch(err => err.err)  
-
-        this.drawCanvas()
-
-        setInterval(() => {
-            this.drawTorch(this.state.x, this.state.y, this.state.width, this.state.height);
-        }, 1000 / 30);
-
-        document.addEventListener('keydown', (e) => {
+        
+        axiosWithAuth().get("/api/adv/gamemap/")
+        .then(res => {
+          this.setState({
+            ...this.state,
+            gameMapArr: res.data.gameMap.flat()
+          })
+          console.log(this.state.gameMapArr)
+        })
+        .catch(err => console.log(err))
+        
+        // setInterval(() => {
+          // }, 1000 / 15)
+          
+          setInterval(() => {
+            this.drawTorch(this.state.x, this.state.y, this.state.torchW, this.state.torchH);
+            // this.drawCanvas()
+          }, 1000 / 15);
+          
+          
+          // this.drawCanvas()
+          
+          document.addEventListener('keydown', (e) => {
             let temp;
             const ctx = this.refs.canvas.getContext('2d');
             // checking for which key is pressed
@@ -99,10 +122,10 @@ export default class Canvas extends Component {
               // setting temp var to capture value of y
               temp = this.state.y
               temp -= 100
-
+              
               // if y value - 100 is still greater than zero, do movement as normal
               if (temp > 0) {
-
+                
                 // console.log(this.state.y)sss
                 this.setState({
                   ...this.state,
@@ -112,7 +135,7 @@ export default class Canvas extends Component {
                   }
                 })
               }
-
+              
             } else if (e.key === 'a') {
               // setting temp var to capture value of y
               temp = this.state.x
@@ -120,7 +143,7 @@ export default class Canvas extends Component {
               
               // if x value - 100 is still greater than zero, do movement as normal
               if (temp > 0) {
-
+                
                 this.setState({
                   ...this.state,
                   x: temp,
@@ -129,7 +152,7 @@ export default class Canvas extends Component {
                   }
                 })
               }
-
+              
             } else if (e.key === 's') {
               // setting temp var to capture value of y
               temp = this.state.y + 100
@@ -144,15 +167,15 @@ export default class Canvas extends Component {
                   }
                 })
               }
-
-
-
+              
+              
+              
             } else if (e.key === 'd') {
               temp = this.state.x
               temp += 100
               // if x value - 100 is still greater than zero, do movement as normal
               if (temp < ctx.canvas.width) {
-
+                
                 this.setState({
                   ...this.state,
                   x: temp,
@@ -164,34 +187,34 @@ export default class Canvas extends Component {
             }
             
             axiosWithAuth()
-              .post("api/adv/move/", this.state.location)
-              .then(res => {
-                this.setState({
-                    ...this.state,
-                    room: {
-                        name: res.data.name,
-                        currentRoom: res.data.title,
-                        roomDescription: res.data.description,
-                        players: res.data.players
-                    }
-                })
-                console.log("moveNorth Res: ", res.data)
+            .post("api/adv/move/", this.state.location)
+            .then(res => {
+              this.setState({
+                ...this.state,
+                room: {
+                  name: res.data.name,
+                  currentRoom: res.data.title,
+                  roomDescription: res.data.description,
+                  players: res.data.players
+                }
               })
-              .catch(err => {
-                console.log("North Error: ", err.res)
-              })
+              console.log("moveNorth Res: ", res.data)
+            })
+            .catch(err => {
+              console.log("North Error: ", err.res)
+            })
           })
         }
-
+        
         
         render() {
           console.log(this.state)
-        return (
-
+          return (
+            
             <div>
                 <div>
                     {this.state.room ? (
-                    <div className="Direction-Buttons">
+                      <div className="Direction-Buttons">
                         <div style={{backgroundColor: "white"}}>
                         {/* {location.direction ? <p>Last Move: {location.direction}</p> : null} */}
                         <p>{this.state.room.currentRoom}</p>
