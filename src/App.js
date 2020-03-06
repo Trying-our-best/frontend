@@ -7,7 +7,7 @@ import {
 } from "react-router-dom"
 
 // component imports
-
+// import Canvas from './components/Canvas/Canvas'
 import Login from "./components/Login/Login"
 import Register from "./components/Register/Register"
 import Game from "../src/components/Game/Game"
@@ -28,8 +28,10 @@ function App() {
         <NavBar isLoggedIn={true} />
         <img src={Torch} alt="torch" className="torch-left" />
         <img src={Torch} alt="torch" className="torch-right" />
-        <Link to="/game">Game</Link>
+        {/* <Link to="/game">Game</Link> */}
         <Route path="/game" component={Game} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
       </div>
     </Router>
   ) : (
@@ -42,7 +44,10 @@ function App() {
         }}
       >
         <NavBar isLoggedIn={false} />
-        <Redirect to="/login" />
+        {/* <Redirect to="/login" /> */}
+        <img src={Torch} alt="torch" className="torch-left" />
+        <img src={Torch} alt="torch" className="torch-right" />
+        <Route path="/game" component={Game} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
       </div>

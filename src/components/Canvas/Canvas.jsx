@@ -13,6 +13,7 @@ import './Canvas.scss'
 import Player from "../../assets/knight.png";
 import Floor from '../../assets/dungeon_tiles_0.png'
 import Wall from '../../assets/dungeon_tiles_0.png'
+import SquareBorder from '../../assets/square-border.svg'
 
 
 
@@ -83,7 +84,7 @@ export default class Canvas extends Component {
           );
 
         } else {
-          ctx2.fillStyle = "#2f2f2f";
+          ctx2.fillStyle = "#202020";
           ctx2.fillRect(
           x * this.state.tileW,
           y * this.state.tileH,
@@ -287,15 +288,18 @@ export default class Canvas extends Component {
     return (
       <div>
         {this.state.message ? (
-          <dialog open>
-            <Win message={this.state.message} reset={this.reset} />
-          </dialog>
+          <div id="page-mask">
+            <dialog open>
+              <Win message={this.state.message} reset={this.reset} className="win-con"/>
+            </dialog>
+          </div>
         ) : (
           <dialog>
             <Win message={this.state.message} reset={this.reset} />
           </dialog>
         )}
         <div className="canvas-wrapper">
+          <img  className="border" src={SquareBorder} alt='game border' />
           <canvas ref="canvas" id="canvas" height="705" width="705"></canvas>
           {this.state.room ? (
             <div className="Direction-Buttons">

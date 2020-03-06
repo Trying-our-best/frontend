@@ -186,10 +186,10 @@ const Register = props => {
                </h2>
             ) : null}
             {isLoading ? (
-               <button className="login-btn">
+               <button className="signup-btn">
                   <Loader
                      type="Oval"
-                     color="#FFFFFF"
+                     color="#d3d3d3"
                      height={40}
                      width={40}
                      timeout={10000} //10 secs

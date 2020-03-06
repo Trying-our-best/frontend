@@ -10,6 +10,7 @@
    .login-heading {
       font-size: 3rem;
       text-shadow: 4px 4px 2px #000000d9;
+      margin-top: -1rem;
    }
    .form-container {
       display: flex;
@@ -21,8 +22,8 @@
       align-items: center;
       justify-content: center;
       align-content: center;
-      border: 2px solid lightblue;
-      background-color: #000000d9;
+      border: 2px solid black;
+      background-color: #202020;
       color: #d7db2c;
       border-radius: 15px;
    }
@@ -39,12 +40,12 @@
       display: flex;
       width: 200px;
       border: none;
-      background-color: #694b7d;
+      background-color: #d3d3d3;
       align-items: center;
       padding: 2%;
       margin-left: 1%;
       font-family: 'VT323', monospace;
-      color: #d7db2c;
+      color: #000000;
       font-size: 1.8rem;
    }
    .divider {
