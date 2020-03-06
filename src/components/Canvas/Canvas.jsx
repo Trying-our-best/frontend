@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 
-import Player from "../../assets/torch.png";
+// component imports
+import RoomInfo from '../RoomInfo/RoomInfo'
 import PlayerList from "../playerList/playerList";
 
+// utils imports
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+
+// stylesheet & image imports
+import './Canvas.scss'
+import Player from "../../assets/torch.png";
+
+
 
 export default class Canvas extends Component {
   state = {
@@ -204,39 +212,35 @@ export default class Canvas extends Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="canvas-wrapper">
+        <canvas ref="canvas" id="canvas" height="705" width="705"></canvas>
           {this.state.room ? (
             <div className="Direction-Buttons">
-              <div style={{ backgroundColor: "white" }}>
+              {/* <div style={{ backgroundColor: "white" }}> */}
                 {/* {location.direction ? <p>Last Move: {location.direction}</p> : null} */}
-                <p>{this.state.room.currentRoom}</p>
-                <p>{this.state.room.roomDescription}</p>
-              </div>
+                {/* <p>{this.state.room.currentRoom}</p> */}
+                {/* <p>{this.state.room.roomDescription}</p> */}
+              {/* </div> */}
               {/* {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null} */}
-              <PlayerList
-                players={this.state.room.players}
-                current={this.state.room.name}
-              />
+              <div className="game-info-wrapper">
+                <PlayerList
+                  players={this.state.room.players}
+                  current={this.state.room.name}
+                />
+                <RoomInfo room={this.state.room}/>
+              </div>
             </div>
           ) : (
             <div>
-              <PlayerList
-                players={this.state.room.players}
-                current={this.state.room.name}
-              />
-              <p>{this.state.room.currentRoom}</p>
-              <p>{this.state.room.roomDescription}</p>
+              <div className="game-info-wrapper">
+                <PlayerList
+                  players={this.state.room.players}
+                  current={this.state.room.name}
+                />
+                <RoomInfo room={this.state.room}/>
+              </div>
             </div>
           )}
-        </div>
-        <canvas
-          ref="canvas"
-          id="canvas"
-          width="705"
-          height="705"
-          style={{ border: "4px solid green" }}
-        ></canvas>
       </div>
     );
   }
