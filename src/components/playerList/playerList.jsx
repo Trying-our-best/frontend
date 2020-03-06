@@ -6,7 +6,7 @@ const PlayerList = props => {
   // console.log(props)
   if (props.players) {
     return (
-      <div className="parent">
+      <div className="player-wrapper">
         <div className="player-container">
           <h3>Player List</h3>
           <b>
