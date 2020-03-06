@@ -16,6 +16,13 @@ const Login = props => {
       password: ''
    });
 
+   const token = localStorage.getItem('token');
+   const key = localStorage.getItem('key');
+
+   if (localStorage.getItem(token) || localStorage.getItem(key)) {
+      props.history.push('/game');
+   }
+
    // using a hook to handle Loading state
    const [isLoading, setIsLoading] = useState(false);
 
@@ -24,15 +31,6 @@ const Login = props => {
       success: false,
       failure: false
    });
-
-   // if the user is already logged in, we want to push them back to the game
-   useEffect(() => {
-      const token = localStorage.getItem('token');
-
-      if (token) {
-         props.history.push('/game');
-      }
-   }, []);
 
    // updating the state every time the user adds new information to the fields
    const handleChange = e => {
@@ -158,7 +156,7 @@ const Login = props => {
                <button className="login-btn">
                   <Loader
                      type="Oval"
-                     color="#FFFFFF"
+                     color="#d3d3d3"
                      height={40}
                      width={40}
                      timeout={10000} //10 secs

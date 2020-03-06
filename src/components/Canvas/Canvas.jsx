@@ -9,8 +9,13 @@ import Win from "../Win/Win"
 import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 // stylesheet & image imports
-import "./Canvas.scss"
-import Player from "../../assets/torch.png"
+import './Canvas.scss'
+import Player from "../../assets/knight.png";
+import Floor from '../../assets/dungeon_tiles_0.png'
+import Wall from '../../assets/dungeon_tiles_0.png'
+import SquareBorder from '../../assets/square-border.svg'
+
+
 
 export default class Canvas extends Component {
   state = {
@@ -36,31 +41,67 @@ export default class Canvas extends Component {
     message: null
   }
 
+  // drawCanvas = () => {
+  //   const ctx = this.refs.canvas.getContext("2d");
+  //   // const floor = Floor
+  //   for (let y = 0; y <= 47; y++) {
+  //     for (let x = 0; x <= 47; x++) {
+  //       if (this.state.gameMapArr[y * 47 + x]) {
+  //         ctx.fillStyle = "#eee";
+  //       } else {
+  //         ctx.fillStyle = "#999";
+  //       }
+  //       ctx.fillRect(
+  //         x * this.state.tileW,
+  //         y * this.state.tileH,
+  //         this.state.tileW,
+  //         this.state.tileH
+  //       );
+  //     }
+  //   }
+  // };
+
   drawCanvas = () => {
-    const ctx = this.refs.canvas.getContext("2d")
+    const ctx2 = this.refs.canvas.getContext("2d");
+    const floor = new Image();
+    const wall = new Image();
+    floor.src = Floor
+    wall.src = Wall
     for (let y = 0; y <= 47; y++) {
       for (let x = 0; x <= 47; x++) {
-        if (this.state.gameMapArr[y * 47 + x]) {
-          ctx.fillStyle = "#eee"
+
+        if (this.state.gameMapArr[y * 47 + x] === 1) {
+          ctx2.drawImage(
+            floor,
+            30,
+            30,
+            100,
+            100,
+            x * this.state.tileW ,
+            y * this.state.tileH,
+            18,
+            18
+          );
+
         } else {
-          ctx.fillStyle = "#999"
-        }
-        ctx.fillRect(
+          ctx2.fillStyle = "#202020";
+          ctx2.fillRect(
           x * this.state.tileW,
           y * this.state.tileH,
           this.state.tileW,
-          this.state.tileH
-        )
+          this.state.tileH);
+        }
       }
     }
   }
 
   drawTorch = (x, y, width, height) => {
-    const ctx = this.refs.canvas.getContext("2d")
-    const img = new Image()
-    img.src = Player
-    console.log("playerX", this.state.playerX)
-    console.log("playerY", this.state.playerY)
+    const ctx = this.refs.canvas.getContext("2d");
+    const img = new Image();
+    img.src = Player;
+    console.log('checking render')
+    // console.log("playerX", this.state.playerX);
+    // console.log("playerY", this.state.playerY);
     ctx.drawImage(
       img,
       this.state.playerX * 30 + 15, //0 * 15 * 2 +15= 15      =15
@@ -134,6 +175,12 @@ export default class Canvas extends Component {
   }
 
   componentDidMount = () => {
+    this.drawCanvas()
+    this.drawTorch(        
+      this.state.x,
+      this.state.y,
+      this.state.torchW,
+      this.state.torchH)
     axiosWithAuth()
       .get("/api/adv/init/")
       .then(res => {
@@ -206,6 +253,8 @@ export default class Canvas extends Component {
       this.state.playerX !== prevState.playerX ||
       this.state.playerY !== prevState.playerY
     ) {
+      let ctx = this.refs.canvas.getContext('2d')
+      // ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)ws
       this.drawTorch(
         this.state.x,
         this.state.y,
@@ -239,15 +288,18 @@ export default class Canvas extends Component {
     return (
       <div>
         {this.state.message ? (
-          <dialog open>
-            <Win message={this.state.message} reset={this.reset} />
-          </dialog>
+          <div id="page-mask">
+            <dialog open>
+              <Win message={this.state.message} reset={this.reset} className="win-con"/>
+            </dialog>
+          </div>
         ) : (
           <dialog>
             <Win message={this.state.message} reset={this.reset} />
           </dialog>
         )}
         <div className="canvas-wrapper">
+          <img  className="border" src={SquareBorder} alt='game border' />
           <canvas ref="canvas" id="canvas" height="705" width="705"></canvas>
           {this.state.room ? (
             <div className="Direction-Buttons">

@@ -1,5 +1,6 @@
 .win-wrapper {
   display: inline-block;
+
   .win-container {
     background-color: #202020;
     width: 20rem;
@@ -20,6 +21,23 @@
       font-family: "VT323", monospace;
       color: #d7db2c;
       font-size: 2rem;
+      margin-top: 1rem;
+      padding: .5rem 2rem;
     }
   }
+}
+
+dialog {
+  top: 30vh;
+  border: 2px solid black;
+}
+
+#page-mask {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
 }
