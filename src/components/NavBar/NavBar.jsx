@@ -32,7 +32,7 @@ const NavBar = props => {
     <div className="navbar-wrapper">
       <h2 className="logo">oneStep Maze</h2>
       <div className="nav-links">
-        <NavLink to="/login" className="navlink">
+        <NavLink to="/" className="navlink">
           Login{" "}
         </NavLink>
         <NavLink to="/register" className="navlink">
