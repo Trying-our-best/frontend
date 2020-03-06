@@ -67,7 +67,7 @@ export default class Canvas extends Component {
       .post("api/adv/move/", this.state.location)
       .then(res => {
         let temp = 0;
-        this.setState({
+        this.setState({ 
           ...this.state,
           playerX: res.data.x,
           playerY: res.data.y,
