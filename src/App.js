@@ -30,7 +30,7 @@ function App() {
         <img src={Torch} alt="torch" className="torch-right" />
         {/* <Link to="/game">Game</Link> */}
         <Route path="/game" component={Game} />
-        <Route path="/" component={Login} />
+        <Route exact path="/" component={Login} />
         <Route path="/register" component={Register} />
       </div>
     </Router>
@@ -48,7 +48,7 @@ function App() {
         <img src={Torch} alt="torch" className="torch-left" />
         <img src={Torch} alt="torch" className="torch-right" />
         <Route path="/game" component={Game} />
-        <Route path="/" component={Login} />
+        <Route exact path="/" component={Login} />
         <Route path="/register" component={Register} />
       </div>
     </Router>
