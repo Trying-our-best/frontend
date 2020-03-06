@@ -1,0 +1,26 @@
+.win-wrapper {
+  display: inline-block;
+  .win-container {
+    background-color: #202020;
+    border: 2px solid black;
+    width: 20rem;
+    padding-bottom: 15px;
+    color: white;
+    .win-message {
+      font-family: "VT323", monospace;
+      font-weight: 500;
+      color: #d7db2c;
+      font-size: 2rem;
+      margin-top: 1rem;
+      margin-bottom: 0;
+    }
+    .win-button {
+      background-color: #694b7d;
+      border: none;
+      border-radius: 20px;
+      font-family: "VT323", monospace;
+      color: #d7db2c;
+      font-size: 2rem;
+    }
+  }
+}

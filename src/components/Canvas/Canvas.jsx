@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 
 // component imports
-import RoomInfo from '../RoomInfo/RoomInfo'
-import PlayerList from "../playerList/playerList";
+import RoomInfo from "../RoomInfo/RoomInfo"
+import PlayerList from "../playerList/playerList"
+import Win from "../Win/Win"
 
 // utils imports
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { axiosWithAuth } from "../../utils/axiosWithAuth"
 
 // stylesheet & image imports
 import './Canvas.scss'
@@ -35,8 +36,9 @@ export default class Canvas extends Component {
       players: null,
       error_msg: null
     },
-    gameMapArr: []
-  };
+    gameMapArr: [],
+    message: null
+  }
 
   // drawCanvas = () => {
   //   const ctx = this.refs.canvas.getContext("2d");
@@ -90,7 +92,7 @@ export default class Canvas extends Component {
         }
       }
     }
-  };
+  }
 
   drawTorch = (x, y, width, height) => {
     const ctx = this.refs.canvas.getContext("2d");
@@ -105,15 +107,15 @@ export default class Canvas extends Component {
       this.state.playerY * 30 + 15, //1 * 15 * 2 + 15= 45     =30
       width,
       height
-    );
-  };
+    )
+  }
 
   verifyMovement = () => {
     axiosWithAuth()
       .post("api/adv/move/", this.state.location)
       .then(res => {
-        let temp = 0;
-        this.setState({ 
+        let temp = 0
+        this.setState({
           ...this.state,
           playerX: res.data.x,
           playerY: res.data.y,
@@ -124,47 +126,52 @@ export default class Canvas extends Component {
             players: res.data.players,
             error_msg: res.data.error_msg
           }
-        });
+        })
         if (res.data.error_msg === "") {
           switch (this.state.location.direction) {
             case "w":
-              temp = this.state.x;
-              temp -= 30;
+              temp = this.state.x
+              temp -= 30
               this.setState({
                 ...this.state,
                 x: temp
-              });
-              break;
+              })
+              break
             case "e":
-              temp = this.state.x;
-              temp += 30;
+              temp = this.state.x
+              temp += 30
               this.setState({
                 ...this.state,
                 x: temp
-              });
-              break;
+              })
+              break
             case "n":
-              temp = this.state.y;
-              temp -= 30;
+              temp = this.state.y
+              temp -= 30
               this.setState({
                 ...this.state,
                 y: temp
-              });
-              break;
+              })
+              break
             case "s":
-              temp = this.state.y + 30;
+              temp = this.state.y + 30
               this.setState({
                 ...this.state,
                 y: this.state.y + 30
-              });
-              break;
+              })
+              break
             default:
-              break;
+              break
           }
+        } else if (res.data.message) {
+          this.setState({
+            ...this.state,
+            message: res.data.message
+          })
         }
       })
-      .catch(err => err.res);
-  };
+      .catch(err => err.res)
+  }
 
   componentDidMount = () => {
     this.drawCanvas()
@@ -186,9 +193,9 @@ export default class Canvas extends Component {
             name: res.data.name,
             players: res.data.players
           }
-        });
+        })
       })
-      .catch(err => err.err);
+      .catch(err => err.err)
 
     axiosWithAuth()
       .get("/api/adv/gamemap/")
@@ -196,8 +203,8 @@ export default class Canvas extends Component {
         this.setState({
           ...this.state,
           gameMapArr: res.data.gameMap.flat()
-        });
-      });
+        })
+      })
 
     document.addEventListener("keydown", e => {
       // checking for which key is pressed
@@ -207,39 +214,39 @@ export default class Canvas extends Component {
           location: {
             direction: "n"
           }
-        });
-        this.verifyMovement();
+        })
+        this.verifyMovement()
       } else if (e.key === "a") {
         this.setState({
           ...this.state,
           location: {
             direction: "w"
           }
-        });
-        this.verifyMovement();
+        })
+        this.verifyMovement()
       } else if (e.key === "s") {
         this.setState({
           ...this.state,
           location: {
             direction: "s"
           }
-        });
-        this.verifyMovement();
+        })
+        this.verifyMovement()
       } else if (e.key === "d") {
         this.setState({
           ...this.state,
           location: {
             direction: "e"
           }
-        });
-        this.verifyMovement();
+        })
+        this.verifyMovement()
       }
-    });
-  };
+    })
+  }
 
   componentDidUpdate = prevState => {
     if (this.state.gameMapArr !== prevState) {
-      this.drawCanvas();
+      this.drawCanvas()
     }
     if (
       this.state.playerX !== prevState.playerX ||
@@ -252,28 +259,46 @@ export default class Canvas extends Component {
         this.state.y,
         this.state.torchW,
         this.state.torchH
-      );
+      )
     }
-  };
+  }
+
+  reset = () => {
+    axiosWithAuth()
+      .get("/api/adv/reset")
+      .then(res => {
+        this.setState({
+          ...this.state,
+          playerX: res.data.x,
+          playerY: res.data.y,
+          room: {
+            currentRoom: res.data.title,
+            roomDescription: res.data.description,
+            name: res.data.name,
+            players: res.data.players
+          }
+        })
+
+        window.location.reload()
+      })
+  }
 
   render() {
     return (
-      <div className="canvas-wrapper">
-        <canvas ref="canvas" id="canvas" height="705" width="705"></canvas>
+      <div>
+        {this.state.message ? (
+          <Win message={this.state.message} reset={this.reset} />
+        ) : null}
+        <div className="canvas-wrapper">
+          <canvas ref="canvas" id="canvas" height="705" width="705"></canvas>
           {this.state.room ? (
             <div className="Direction-Buttons">
-              {/* <div style={{ backgroundColor: "white" }}> */}
-                {/* {location.direction ? <p>Last Move: {location.direction}</p> : null} */}
-                {/* <p>{this.state.room.currentRoom}</p> */}
-                {/* <p>{this.state.room.roomDescription}</p> */}
-              {/* </div> */}
-              {/* {roomInfo.error_msg ? <p>{roomInfo.error_msg}</p> : null} */}
               <div className="game-info-wrapper">
                 <PlayerList
                   players={this.state.room.players}
                   current={this.state.room.name}
                 />
-                <RoomInfo room={this.state.room}/>
+                <RoomInfo room={this.state.room} />
               </div>
             </div>
           ) : (
@@ -283,11 +308,12 @@ export default class Canvas extends Component {
                   players={this.state.room.players}
                   current={this.state.room.name}
                 />
-                <RoomInfo room={this.state.room}/>
+                <RoomInfo room={this.state.room} />
               </div>
             </div>
           )}
+        </div>
       </div>
-    );
+    )
   }
 }

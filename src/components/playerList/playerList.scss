@@ -6,42 +6,24 @@
 //   grid-row-gap: 0px;
 // }
 
-// .player-container {
-//   background-color: #202020;
-//   border: 2px solid black;
-//   width: 20rem;
-//   grid-area: 1 / 4 / 5 / 6;
-//   position: absolute;
-//   top: 125px;
-//   left: 63vw;
-//   padding-bottom: 10px;
-//   color: white;
-// }
-
-// h3 {
-//   font-family: "VT323", monospace;
-//   color: #d7db2c;
-//   margin-bottom: 2px;
-//   font-size: 2rem;
-//   margin-top: 5px;
-// }
-
 .player-wrapper {
-
   .player-container {
     background-color: #202020;
     border: 2px solid black;
     width: 20rem;
+    grid-area: 1 / 4 / 5 / 6;
+    position: absolute;
+    top: 125px;
+    left: 63vw;
     padding-bottom: 10px;
     color: white;
-    height: 20rem;
+  }
 
-    h3 {
-      font-family: "VT323", monospace;
-      font-weight: 500;
-      color: #d7db2c;
-      font-size: 2rem;
-      margin-top: 1rem;
-    }
+  h3 {
+    font-family: "VT323", monospace;
+    color: #d7db2c;
+    margin-bottom: 2px;
+    font-size: 2rem;
+    margin-top: 5px;
   }
 }
