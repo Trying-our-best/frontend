@@ -55,8 +55,8 @@ export default class Canvas extends Component {
     console.log("playerY", this.state.playerY);
     ctx.drawImage(
       img,
-      this.state.playerX * x + x, //0 * 15 * 2 +15= 15      =15
-      this.state.playerY * y + y, //1 * 15 * 2 + 15= 45     =30
+      this.state.playerX * 30 + 15, //0 * 15 * 2 +15= 15      =15
+      this.state.playerY * 30 + 15, //1 * 15 * 2 + 15= 45     =30
       width,
       height
     );
