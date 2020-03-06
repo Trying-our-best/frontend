@@ -1,19 +1,23 @@
-
 .canvas-wrapper {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 auto;
-    text-align: center;
-    width: 1100px;
-    display: flex;
-    margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  text-align: center;
+  width: 1100px;
+  display: flex;
+  margin-top: 2rem;
 }
 
 .game-info-wrapper {
-    height: 705px;
-    margin: 0 auto;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 705px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+dialog {
+  border: none;
+  background: #202020;
 }
