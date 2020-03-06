@@ -239,8 +239,14 @@ export default class Canvas extends Component {
     return (
       <div>
         {this.state.message ? (
-          <Win message={this.state.message} reset={this.reset} />
-        ) : null}
+          <dialog open>
+            <Win message={this.state.message} reset={this.reset} />
+          </dialog>
+        ) : (
+          <dialog>
+            <Win message={this.state.message} reset={this.reset} />
+          </dialog>
+        )}
         <div className="canvas-wrapper">
           <canvas ref="canvas" id="canvas" height="705" width="705"></canvas>
           {this.state.room ? (
