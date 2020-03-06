@@ -17,6 +17,9 @@
     left: 63vw;
     padding-bottom: 10px;
     color: white;
+    max-height: 30%;
+    overflow-y: scroll;
+    scrollbar-color: #d3d3d3 #202020;
   }
 
   h3 {
