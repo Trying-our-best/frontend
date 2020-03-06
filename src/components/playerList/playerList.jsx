@@ -12,7 +12,7 @@ const PlayerList = props => {
           <b>
             <i>{props.current} (You)</i>
           </b>
-          {props.players.map(player => {
+          {props.players && props.players.map(player => {
             return <div>{player}</div>
           })}
         </div>
